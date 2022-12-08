@@ -122,4 +122,184 @@
 )
 
 (definstances instances
+
+    ([Sentadilla_SuperClass] of Ejercicio
+         (dificultat  3)
+         (nombre_ejercicio  "Sentadilla")
+         (parte_ejercitada  "Pierna")
+    )
+
+    ([Sentadilla] of Anaerobico
+         (es_un  [Sentadilla_SuperClass])
+         (minutos  2)
+         (tipo_deporte "HIT")
+    )
+
+    ([Lateralización de Cuello] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Lateralización de Cuello")
+            (parte_ejercitada  "Cuello")
+        )
+        
+    ([Diagonal de cuello] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Diagonal de cuello")
+            (parte_ejercitada  "Cuello")
+        )
+
+    ([Flexion de hombros] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Flexion de hombros")
+            (parte_ejercitada  "Hombro")
+        )
+    
+    ([Extension de hombros] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Extension de hombros")
+            (parte_ejercitada  "Hombro")
+        )
+    
+    ([Estiramiento de pectorales] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Estiramiento de pectorales")
+            (parte_ejercitada  "Pectorales")
+        )
+    
+    ([Rotadores de hombro] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Rotadores de hombro")
+            (parte_ejercitada  "Pectorales")
+        )
+    
+    ([Estiramiento de miembros superiores] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Lateralización del tronco] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Giros de cintura] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Estiramiento de miembros inferiores] of Ejercicio
+            (dificultat  1)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Deltoides] of Ejercicio
+            (dificultat  3)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Trapecios] of Ejercicio
+            (dificultat  3)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Pectorales] of Ejercicio
+            (dificultat  3)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Biceps] of Ejercicio
+            (dificultat  3)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Triceps] of Ejercicio
+            (dificultat  3)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Puente] of Ejercicio
+            (dificultat  2)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Abdominales] of Ejercicio
+            (dificultat  2)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Marcha] of Ejercicio
+            (dificultat  2)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Andar] of Ejercicio
+            (dificultat  2)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Ciclismo] of Ejercicio
+            (dificultat  2)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    
+    ([Pedalear] of Ejercicio
+            (dificultat  2)
+            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (parte_ejercitada  "Brazos")
+        )
+    ([Cardiovascular] of Enfermedad
+            (tipo_enfermedad "Cardiovascular")
+        )
+
+    ([Hipertension] of Enfermedad
+            (tipo_enfermedad "Hipertension")
+        )
+
+    ([Sobrepeso] of Enfermedad
+            (tipo_enfermedad "Sobrepeso")
+        )
+
+    ([Pulmonar] of Enfermedad
+            (tipo_enfermedad "Pulmonar")
+        )
+    
+    ([Osteoporosis] of Enfermedad
+            (tipo_enfermedad "Osteoporosis")
+        )
+    
+    ([Cancer] of Enfermedad
+            (tipo_enfermedad "Cancer")
+        )
+    
+    ([Artritis] of Enfermedad
+            (tipo_enfermedad "Artritis")
+        )
+    
+    ([Depresion] of Enfermedad
+            (tipo_enfermedad "Depresion")
+        )
+    
+    ([PlanDeEjercicios1] of Plan_Ejercicios
+            (diseñado_para  [Persona1])
+            (formada_por )
+            (dias 4)
+            (dificultat 2)
+        )
+    
+    ([Sesion1] of Sesion
+            (formada_por [PlanDeEjercicios1])
+        )
 )
