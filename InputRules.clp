@@ -78,18 +78,18 @@
     ;Funciones de abstraccion
 
 (deftemplate abstraccion::atributos
-	(slot edat (type STRING)  (default ""))
-  (slot IMC (type STRING) (default ""))
-  (slot enfermetats (type STRING) (default ""))
-  (slot forma_fisica (type STRING) (default ""))
+(slot edat (type STRING)  (default ""))
+(slot IMC (type STRING) (default ""))
+(slot enfermetats (type STRING) (default ""))
+(slot forma_fisica (type STRING) (default ""))
 )
 
 (defrule abstraccion::abstraccion-edad "Establece el tamanyo del grupo"
 	(not (atributos))
 	=>
-    (if (< ?e 70) then (bind ?edat "Adult"))
-    (if (and (>= ?e 70) (< ?e 85) then (bind ?edat "Gran")))
-    (if (>= ?e 85) then (bind ?edat "Molt Gran"))
+  (if (< ?e 70) then (bind ?edat "Adult"))
+  (if (and (>= ?e 70) (< ?e 85) then (bind ?edat "Gran")))
+  (if (>= ?e 85) then (bind ?edat "Molt Gran"))
 	(assert (atributos (edat ?edat)))
 )
 
@@ -98,10 +98,10 @@
   (test (= (str-compare ?IMC "") 0) )
 	=>
 	(bind ?imc (/ ?a ?p))
-    (if (< ?imc 18.5) then (bind ?IMC "delgadez"))
-    (if (and(>= ?imc 18.5) (< ?imc 25)) then (bind ?IMC "normal"))
-    (if (and(>= ?imc 25) (< ?imc 30)) then (bind ?IMC "sobrepeso"))
-    (if (>= ?imc 30) then (bind ?IMC "obesidad"))
+  (if (< ?imc 18.5) then (bind ?IMC "delgadez"))
+  (if (and(>= ?imc 18.5) (< ?imc 25)) then (bind ?IMC "normal"))
+  (if (and(>= ?imc 25) (< ?imc 30)) then (bind ?IMC "sobrepeso"))
+  (if (>= ?imc 30) then (bind ?IMC "obesidad"))
 	(modify ?atr ((IMC ?IMC))
 )
 
@@ -128,11 +128,41 @@
 	(modify ?atr ((forma_fisica ?forma_fisica))
 )
 
-   ;loop sobre tots els exercicis, descartant en cas que no compleixin amb les condicions mínimes, i puntuant en cas contrari
-  (bind $?vivendes (find-all-instances ((?ins Vivenda)) TRUE))
+(defrule abstraccion::clasificaion_estado "Pasa a la recopilacion de preferencias"
+    (declare (salience 10))	
+	  ?atr <- (atributos (IMC ~"IMC")(edat ?edat) (enfermetats ?enfermetats) (forma_fisica ?forma_fisica) )
+    (test (not(= (str-compare ?IMC "") 0)))
+    (test (not(= (str-compare ?edat "") 0)))
+    (test (not(= (str-compare ?enfermetats "") 0)))
+    (test (not(= (str-compare ?forma_fisica "") 0)))
+	=>
+	(focus puntuacion_ejercicios)
+)
+
+  ;loop sobre tots els exercicis, descartant en cas que no compleixin amb les condicions mínimes, i puntuant en cas contrari
+  ;para descartar solo hay que cambiar el TRUE del find-all por una condicion sobre la intensidad del ejercicio
+  
+  (defclass Valoracion 
+	(is-a USER)
+	(role concrete)
+    (slot nombre_ejercicio
+		(type INSTANCE)
+		(create-accessor read-write))
+    (slot puntuacion
+        (type FLOAT)
+        (create-accessor read-write))
+)
+  
+  (bind $?ejercicios_posibles (find-all-instances ((?ins Vivenda)) TRUE))
+
+  (progn$ (?ejer_act ?ejercicios_posibles)
+		(make-instance (sym-cat ejercicio- (gensym)) of Valoracion (nombre_ejercicio ?ejer_act)(puntuacion 0.0))
+	)	
+
   (loop-for-count (?i 1 (length$ $?vivendes))
     do
     (bind ?curr-obj (nth$ ?i ?vivendes))
+  
     ;comprobar si és acceptable
       (bind ?acceptable (comprovarVivenda ?curr-obj ?habflex
 						    ?pPreuMaxFlex
@@ -161,7 +191,7 @@
 						    ?llistaPositivaDebil
 						    ?llistaNegativaDebil))
       )
-      ;organizar en sesiones los ejercicios
+      ;organizar en sesiones los ejercicios, otro modulo
 
-      ;imprimir por pantalla
+      ;imprimir por pantalla, otro modulo
 ))
