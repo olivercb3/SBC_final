@@ -24,15 +24,17 @@
 (defrule PreguntesSolicitant
     ?trigger <- (preguntar)
     =>
+    (bind ?valorsPermesosBinari (create$ "si" "no"))
+
     (bind ?edad (preguntaInteger "Cuantos años tienes?" 1 100))
     (bind ?altura (preguntaInteger "Cuanto mides (en cm)?" 50 250))
     (bind ?pes (preguntaInteger "Cuanto pesas (en kg)?" 40 200))
-    (bind ?disc_sup (preguntaIntegerUnbound "Tienes alguna discapacidad del tren superior?"))
-    (bind ?disc_inf (preguntaIntegerUnbound "Tienes alguna discapacidad del tren inferior?"))
-    (bind ?caid (preguntaIntegerUnbound "Has tenido alguna caída en los últimos 6 meses?"))
-    (bind ?dias_deporte (preguntaInteger "Cuantos días a la semana sueles practicar deporte?" 3 7))
-    (bind ?agotamiento (preguntaIntegerUnbound "Al subir escaleras sientes agotamiento?"))
-    (bind ?dias_posibles (preguntaIntegerUnbound "Cuantos días a la semana tienes disponibilidad para entrenar?" 3 7))
+    (bind ?disc_sup (preguntaBinaria "Tienes alguna discapacidad del tren superior?" ?valorsPermesosBinari))
+    (bind ?disc_inf (preguntaBinaria "Tienes alguna discapacidad del tren inferior?" ?valorsPermesosBinari))
+    (bind ?caid (preguntaBinaria "Has tenido alguna caída en los últimos 6 meses?" ?valorsPermesosBinari))
+    (bind ?dias_deporte (preguntaInteger "Cuantos días a la semana sueles practicar deporte?" 0 7))
+    (bind ?agotamiento (preguntaBinaria "Al subir escaleras sientes agotamiento?" ?valorsPermesosBinari))
+    (bind ?dias_posibles (preguntaBinaria "Cuantos días a la semana tienes disponibilidad para entrenar?" 3 7))
 
 
     (assert (Persona
