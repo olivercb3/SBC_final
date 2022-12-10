@@ -65,15 +65,17 @@
     (test (not(= (str-compare ?enfermetats "") 0)))
     (test (not(= (str-compare ?forma_fisica "") 0)))
     (not (lista_ejercicios))
+    ?persona <- (object (is-a Persona) (nivel_de_forma ?forma))
 	=>
     
+    (send ?persona put-nivel_de_forma ?forma)
     (assert (lista_ejercicios))
 )
 
 (defrule abstraccion::asignar_ejercicios "Se crea una lista de recomendaciones para ordenarlas"
 	?lista_ejercicios <- (lista_ejercicios (puntuaciones $?lista))
 	=>
-    (bind $?ejercicios_posibles (find-all-instances ((?ins ejercicios))))
+    (bind $?ejercicios_posibles (find-all-instances (?ins Ejercicio)))
 
     (progn$ (?ejer_act $?ejercicios_posibles)
 		(make-instance (sym-cat ejercicio- (gensym)) of Valoracion (nombre_ejercicio ?ejer_act)(puntuacion 0.0))
