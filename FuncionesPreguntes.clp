@@ -2,6 +2,7 @@
 
 
 ;; Pregunta segur(si/no), (si/no), indiferent
+<<<<<<< HEAD
 (deffunction preguntaBinariaBis (?text $?valors-permesos)
   (printout t crlf)
   (format t "%s (%s) " ?text (implode$ ?valors-permesos))
@@ -28,11 +29,29 @@
                   (bind ?resp -2)
               )
           )
+=======
+(deffunction preguntaBinaria (?text $?valors-permesos)
+  (printout t crlf)
+  (format t "%s (%s) " ?text (implode$ ?valors-permesos))
+  (printout t crlf)
+  (bind ?r (read))
+  (while (not (member$ (lowcase ?r) ?valors-permesos)) do
+    (format t "¿%s? (%s) " ?text (implode$ ?valors-permesos))
+    (printout t crlf)
+    (bind ?r (read))
+  )
+  (if (eq (str-compare "si" ?r) 0)
+    then (bind ?resp TRUE)
+    else
+      (if (eq (str-compare "no" ?r) 0)
+        then (bind ?resp FALSE)
+>>>>>>> e612c7de4df3f8ba3bab6121480a66b0cb99d54c
       )
     )
     ?resp
 )
 
+<<<<<<< HEAD
 ;; Pregunta serveis positiva
 (deffunction preguntaServeisPositiva (?text)
   (bind ?valors-serveis (create$ "centresalut" "escoles" "hipermercats" "supermercats" "oci" "transportpublic" "zonesverdes"))
@@ -97,6 +116,8 @@
   (return (create$ 0 null))
 )
 
+=======
+>>>>>>> e612c7de4df3f8ba3bab6121480a66b0cb99d54c
 ;;; Pregunta per un integer
 (deffunction preguntaInteger (?text ?min ?max)
 	(printout t crlf)
@@ -118,6 +139,7 @@
 		(bind ?r (read))
 	)
 	?r
+<<<<<<< HEAD
 )
 
 (deffunction preguntaFlexible (?text $?valors-permesos)
@@ -141,4 +163,6 @@
       )
   )
   ?resp
+=======
+>>>>>>> e612c7de4df3f8ba3bab6121480a66b0cb99d54c
 )
