@@ -58,11 +58,29 @@
     
 
 
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#se_recomienda -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#se_recomienda">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Enfermedad"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Faceta_trabajada"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#sufre -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#sufre">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Persona"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Enfermedad"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#trabaja -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#trabaja">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Ejercicio"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Faceta_trabajada"/>
     </owl:ObjectProperty>
     
 
@@ -171,6 +189,33 @@
     
 
 
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#exterior -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#exterior">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Aerobico"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#impacto -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#impacto">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Ejercicio"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#material -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#material">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Ejercicio"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#minutos -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#minutos">
@@ -193,13 +238,12 @@
     
 
 
-    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#nombre_ejercicio -->
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#nombre -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#nombre_ejercicio">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#nombre">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Ejercicio"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Enfermedad"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Faceta_trabajada"/>
     </owl:DatatypeProperty>
     
 
@@ -246,11 +290,11 @@
     
 
 
-    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#preferencias -->
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#pos_desplazamiento -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#preferencias">
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty"/>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#pos_desplazamiento">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Persona"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
     </owl:DatatypeProperty>
     
 
@@ -324,6 +368,12 @@
     <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Enfermedad -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Enfermedad"/>
+    
+
+
+    <!-- http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Faceta_trabajada -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Faceta_trabajada"/>
     
 
 

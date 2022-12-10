@@ -1,0 +1,281 @@
+@prefix : <http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4> .
+
+<http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#diseñado_para
+:diseñado_para rdf:type owl:ObjectProperty ;
+               rdfs:domain :Plan_Ejercicios ;
+               rdfs:range :Persona .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#es_un
+:es_un rdf:type owl:ObjectProperty ;
+       rdfs:domain :Aerobico ,
+                   :Anaerobico ;
+       rdfs:range :Ejercicio .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#formada_por
+:formada_por rdf:type owl:ObjectProperty ;
+             rdfs:domain :Sesion ;
+             rdfs:range :Ejercicio .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#formado_por
+:formado_por rdf:type owl:ObjectProperty ;
+             rdfs:domain :Plan_Ejercicios ;
+             rdfs:range :Sesion .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#se_recomienda
+:se_recomienda rdf:type owl:ObjectProperty ;
+               rdfs:domain :Enfermedad ;
+               rdfs:range :Faceta_trabajada .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#sufre
+:sufre rdf:type owl:ObjectProperty ;
+       rdfs:domain :Persona ;
+       rdfs:range :Enfermedad .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#trabaja
+:trabaja rdf:type owl:ObjectProperty ;
+         rdfs:domain :Ejercicio ;
+         rdfs:range :Faceta_trabajada .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#altura
+:altura rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf owl:topDataProperty ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:domain :Persona ;
+        rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#dia
+:dia rdf:type owl:DatatypeProperty ;
+     rdfs:domain :Sesion ;
+     rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#dias
+:dias rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:domain :Plan_Ejercicios ;
+      rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#dificultat
+:dificultat rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty ;
+            rdf:type owl:FunctionalProperty ;
+            rdfs:domain :Plan_Ejercicios ;
+            rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#dificultat_ejercicio
+:dificultat_ejercicio rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf owl:topDataProperty ;
+                      rdf:type owl:FunctionalProperty ;
+                      rdfs:domain :Ejercicio ;
+                      rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#discapacidad_tren_inferior
+:discapacidad_tren_inferior rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :Persona ;
+                            rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#discapacidad_tren_superior
+:discapacidad_tren_superior rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :Persona ;
+                            rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#edad
+:edad rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:domain :Persona ;
+      rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#expuesto_a_caídas
+:expuesto_a_caídas rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :Persona ;
+                   rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#exterior
+:exterior rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Aerobico ;
+          rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#impacto
+:impacto rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Ejercicio ;
+         rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#material
+:material rdf:type owl:DatatypeProperty ;
+          rdfs:domain :Ejercicio ;
+          rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#minutos
+:minutos rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdf:type owl:FunctionalProperty ;
+         rdfs:domain :Aerobico ;
+         rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#nivel_de_forma
+:nivel_de_forma rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :Persona ;
+                rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#nombre
+:nombre rdf:type owl:DatatypeProperty ;
+        rdfs:domain :Ejercicio ,
+                    :Enfermedad ,
+                    :Faceta_trabajada .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#numero_repeticiones
+:numero_repeticiones rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf owl:topDataProperty ;
+                     rdf:type owl:FunctionalProperty ;
+                     rdfs:domain :Anaerobico ;
+                     rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#numero_series
+:numero_series rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain :Anaerobico ;
+               rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#parte_ejercitada
+:parte_ejercitada rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Ejercicio ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#peso
+:peso rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:domain :Persona ;
+      rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#pos_desplazamiento
+:pos_desplazamiento rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Persona ;
+                    rdfs:range xsd:boolean .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#tipo_anaerobico
+:tipo_anaerobico rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain :Anaerobico ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#tipo_deporte
+:tipo_deporte rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf owl:topDataProperty ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain :Aerobico ;
+              rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#tipo_enfermedad
+:tipo_enfermedad rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain :Enfermedad ;
+                 rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Aerobico
+:Aerobico rdf:type owl:Class ;
+          rdfs:subClassOf :Ejercicio .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Anaerobico
+:Anaerobico rdf:type owl:Class ;
+            rdfs:subClassOf :Ejercicio .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Ejercicio
+:Ejercicio rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Enfermedad
+:Enfermedad rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Faceta_trabajada
+:Faceta_trabajada rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Persona
+:Persona rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Plan_Ejercicios
+:Plan_Ejercicios rdf:type owl:Class ;
+                 rdfs:comment "Plan de ejercicios diseñado para una persona concreta en un momento dado." .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#Sesion
+:Sesion rdf:type owl:Class .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Ejercicio
+                :Enfermedad
+                :Persona
+                :Plan_Ejercicios
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
