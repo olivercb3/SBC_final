@@ -31,16 +31,55 @@
 )
 
 (deffunction eliminar_incomp ($?lista ?material ?dis_inf ?dis_sup)
-	(bind ?maximo -1)
-	(bind ?elemento nil)
-	(progn$ (?curr-rec $?lista)
-		(bind ?curr-cont (send ?curr-rec get-nombre_cuadro))
-		(bind ?curr-punt (send ?curr-rec get-puntuacion))
-		(if (> ?curr-punt ?maximo)
-			then 
-			(bind ?maximo ?curr-punt)
-			(bind ?elemento ?curr-rec)
+	(switch ?material
+ 	(case TRUE then 
+		(switch ?dis_inf
+ 			(case TRUE then 
+				(switch ?dis_inf
+ 					(case TRUE then 
+					()
+					)
+ 					(case FALSE then 
+					()
+	 				)
+				)
+			)
+ 			(case FALSE then 
+				(switch ?dis_inf
+ 					(case TRUE then 
+					()
+					)
+ 					(case FALSE then 
+					()
+	 				)
+				)
+	 		)
 		)
+	)
+ 	(case FALSE then 
+		(switch ?dis_inf
+ 			(case TRUE then 
+				(switch ?dis_inf
+ 					(case TRUE then 
+					()
+					)
+ 					(case FALSE then 
+					()
+	 				)
+				)
+			)
+ 			(case FALSE then 
+				(switch ?dis_inf
+ 					(case TRUE then 
+					()
+					)
+ 					(case FALSE then 
+					()
+	 				)
+				)
+	 		)
+		)
+ 	)
 	)
 	(return ?elemento)
 )
