@@ -1,4 +1,7 @@
-(defmodule preguntas)
+(defmodule preguntas
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
 
 (deffunction preguntaBinaria (?text $?valors-permesos)
   (printout t crlf)
@@ -68,11 +71,10 @@
 )
 
 (defrule PreguntesSolicitant
-    ?trigger <- (preguntar)
+    (not (object (is-a Persona) )
     =>
     (bind ?valorsPermesosBinari (create$ "si" "no"))
-    
-   (bind ?edad (preguntaInteger "Cuantos años tienes?" 1 100))
+    (bind ?edad (preguntaInteger "Cuantos años tienes?" 1 100))
     (bind ?altura (preguntaInteger "Cuanto mides (en cm)?" 50 250))
     (bind ?pes (preguntaInteger "Cuanto pesas (en kg)?" 40 200))
     (bind ?disc_sup (preguntaBinaria "Tienes alguna discapacidad del tren superior?" ?valorsPermesosBinari))
@@ -83,19 +85,17 @@
     (bind ?dias_posibles (preguntaBinaria "Cuantos días a la semana tienes disponibilidad para entrenar?" 3 7))
     (bind ?penfermedad (preguntaMalaltiesPositiva "Sufres de alguna de las siguientes enfermedades? Indiquelas en minúsucla y separadas por un espacio. Al final esribe la palabra final, para poder proceder."))
 
-
-
     (make-instance [p] of Persona 
-        (altura ?altura)
-        (discapacidad_tren_inferior ?disc_inf)
-        (discapacidad_tren_superior ?disc_sup)
-        (edad ?edad)
-        (expuesto_a_caídas ?caid)
-        (altura ?altura)
-        (nivel_de_forma 0)
-        (peso ?peso)
+      (altura ?altura)
+      (discapacidad_tren_inferior ?disc_inf)
+      (discapacidad_tren_superior ?disc_sup)
+      (edad ?edad)
+      (expuesto_a_caídas ?caid)
+      (altura ?altura)
+      (nivel_de_forma 0)
+      (peso ?peso)
         
-      )
+    )
 
-    assert(cercar)
+    focus(abstraccion)
 )

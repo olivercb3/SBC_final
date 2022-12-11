@@ -4,31 +4,11 @@
 	(export ?ALL)
 )
 
+(deftemplate abstraccion::nivel_de_forma
+	(slot forma (type INTEGER))
+)
+
 ;Funciones de abstraccion
-
-(deffunction maximo-puntuacion ($?lista)
-	(bind ?maximo -1)
-	(bind ?elemento nil)
-	(progn$ (?ejer_act $?lista)
-		(bind ?punt (send ?ejer_act get-puntuacion))
-		(if (> ?punt ?maximo)
-			then 
-			(bind ?maximo ?punt)
-			(bind ?elemento ?ejer_act)
-		)
-	)
-	(return ?elemento)
-)
-
-(deffunction ordena_lista ($?lista_sin_ord)
-	(bind $?resultado (create$ ))
-	(while (not (eq (length$ $?lista_sin_ord) 0))  do
-		(bind ?ejer_act (maximo-puntuacion $?lista))
-		(bind $?lista (delete-member$ $?lista ?curr-rec))
-		(bind $?resultado (insert$ $?resultado (+ (length$ $?resultado) 1) ?curr-rec))
-	)
-	(return $?resultado)
-)
 
 (deffunction eliminar_incomp ($?lista ?material ?dis_inf ?dis_sup)
 	(switch ?material
@@ -153,23 +133,29 @@
     (test (not(< ?enfermetats  0) ))
     (test (not(< ?forma_fisica  0) ))
     (not (lista_ejercicios))
-    ?persona <- (object (is-a Persona) (nivel_de_forma ?forma))
+    (not (nivel_de_forma))
 	=>
     if(  (and  (and (= ?IMC 0) (= ?edat 0)) (and (= ?IMC 0) (= ?edat 0)))
-        then (bind ?forma 0)
+        then (bind ?forma 10)
     )
-    (send ?persona put-nivel_de_forma ?forma)
+    (assert (nivel_de_forma (forma ?forma) ))
     (assert (lista_ejercicios))
 )
 
 (defrule abstraccion::asignar_ejercicios "Se crea una lista de recomendaciones para ordenarlas"
 	?lista_ejercicios <- (lista_ejercicios (puntuaciones $?lista))
-    ?persona <- (object (is-a Persona) (nivel_de_forma ?forma) (discapacidad_tren_inferior ?di)
+    ?persona <- (object (is-a Persona) (discapacidad_tren_inferior ?di)
                 (discapacidad_tren_superior ?ds) (material ?m) )
+	(nivel_de_forma (forma ?forma) )
 	=>
 
-    (bind $?ejercicios_posibles (find-all-instances (?ins Ejercicio) (<= ?inst:dificultat_ejercicio
+    (bind $?ejercicios_aerobicos (find-all-instances (?ins Aerobico) (<= ?inst:dificultat_ejercicio
     (* ?forma 2))))
+	(bind $?ejercicios_anaerobicos (find-all-instances (?ins Aerobico) (<= ?inst:dificultat_ejercicio
+    (* ?forma 2))))
+	(bind $?ejercicios_posibles 
+		(progn$ (?var ?ejercicios_anaerobicos) (insert$ ?lista (+ (length$ ?lista) 1) ?var)) 
+    )
 
     (bind $?ejercicios_posibles (eliminar_incomp $?ejercicios_posibles ?m ?di ?ds))
 
