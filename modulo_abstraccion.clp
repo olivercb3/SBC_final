@@ -11,57 +11,104 @@
 ;Funciones de abstraccion
 
 (deffunction eliminar_incomp ($?lista ?material ?dis_inf ?dis_sup)
+	(bind ?mat (send ?ejer_act get-material))
+	(bind ?parte_ejercitada (send ?ejer_act get-parte_ejercitada))
+
 	(switch ?material
  	(case TRUE then 
-		(switch ?dis_inf
+		(switch ?dis_sup
  			(case TRUE then 
 				(switch ?dis_inf
  					(case TRUE then 
-					()
+						(progn$ (?ejer_act $?lista)
+							;tiene material y las dos discapacidades
+							(if (or  (= (str-compare "Pierna" ?parte_ejercitada) 0) 
+								(= (str-compare "Brazo" ?parte_ejercitada) 0) )
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
 					)
  					(case FALSE then 
-					()
+						(progn$ (?ejer_act $?lista)
+							;tiene material y discapacidad superior
+							(if (= (str-compare "Brazo" ?parte_ejercitada) 0) 
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
 	 				)
 				)
 			)
  			(case FALSE then 
 				(switch ?dis_inf
  					(case TRUE then 
-					()
+						(progn$ (?ejer_act $?lista)
+							;tiene material y discapacidad inferior
+							(if (= (str-compare "Pierna" ?parte_ejercitada) 0)
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
 					)
- 					(case FALSE then 
-					()
-	 				)
-				)
+ 				)
 	 		)
 		)
 	)
  	(case FALSE then 
-		(switch ?dis_inf
+		(switch ?dis_sup
  			(case TRUE then 
 				(switch ?dis_inf
  					(case TRUE then 
-					()
+						(progn$ (?ejer_act $?lista)
+							;NO tiene material y las dos discapacidades
+							(if (or (?mat)  (or  (= (str-compare "Pierna" ?parte_ejercitada) 0) 
+								(= (str-compare "Brazo" ?parte_ejercitada) 0) )) 
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
 					)
  					(case FALSE then 
-					()
+						(progn$ (?ejer_act $?lista)
+							;NO tiene material y discapacidad superior
+							(if (or (?mat)	(= (str-compare "Brazo" ?parte_ejercitada) 0) )
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
 	 				)
 				)
 			)
  			(case FALSE then 
 				(switch ?dis_inf
  					(case TRUE then 
-					()
+						(progn$ (?ejer_act $?lista)
+							;NO tiene material y discapacidad inferior
+							(if (or (not (?mat)) 
+								(= (str-compare "Pierna" ?parte_ejercitada) 0) )
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
 					)
  					(case FALSE then 
-					()
+						(case TRUE then 
+						(progn$ (?ejer_act $?lista)
+							;NO tiene material
+							(if (not (?mat)) 
+								then 
+								(bind $?lista (delete-member$ $?lista ?ejer_act)
+							)
+						)
+					)
 	 				)
 				)
 	 		)
 		)
  	)
 	)
-	(return ?elemento)
+	(return $?lista)
 )
 
 ;Reglas de abstraccion
@@ -151,7 +198,7 @@
 
     (bind $?ejercicios_aerobicos (find-all-instances (?ins Aerobico) (<= ?inst:dificultat_ejercicio
     (* ?forma 2))))
-	(bind $?ejercicios_anaerobicos (find-all-instances (?ins Aerobico) (<= ?inst:dificultat_ejercicio
+	(bind $?ejercicios_anaerobicos (find-all-instances (?ins Anaerobico) (<= ?inst:dificultat_ejercicio
     (* ?forma 2))))
 	(bind $?ejercicios_posibles 
 		(progn$ (?var ?ejercicios_anaerobicos) (insert$ ?lista (+ (length$ ?lista) 1) ?var)) 

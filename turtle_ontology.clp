@@ -418,7 +418,7 @@
     
     ([Estiramiento_de_miembros_inferiores] of Ejercicio
             (dificultat  1)
-            (nombre_ejercicio  "Estiramiento de miembros superiores")
+            (nombre_ejercicio  "Estiramiento de miembros inferiores")
             (parte_ejercitada  "Pierna")
         )
     

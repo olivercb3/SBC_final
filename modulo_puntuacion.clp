@@ -3,6 +3,12 @@
 	(export ?ALL)
 )
 
+(deftemplate restricciones
+	(slot cardiovascular (type INTEGER))
+	(slot cancer (type INTEGER))
+	(slot osteoporosis (type INTEGER))
+)
+
 (deffunction maximo-puntuacion ($?lista)
 	(bind ?maximo -1)
 	(bind ?elemento nil)
@@ -27,3 +33,15 @@
 	(return $?resultado)
 )
 
+(defrule puntuacion::asignar_ejercicios "Se crea una lista de recomendaciones para ordenarlas"
+	?lista_ejercicios <- (lista_ejercicios (puntuaciones $?lista))
+    ?persona <- (object (is-a Persona) (discapacidad_tren_inferior ?di)
+                (discapacidad_tren_superior ?ds) (material ?m) )
+    (not (?ordenado))
+	=>
+
+    (bind $?lista_ordenada (ordena_lista $?lista_sin_ord))
+
+	(modify ?lista_ejercicios (puntuaciones $?lista_ordenada))
+    (focus ordenar)
+)
