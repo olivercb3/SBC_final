@@ -101,7 +101,7 @@
 								(bind $?lista (delete-member$ $?lista ?ejer_act)
 							)
 						)
-					)
+						)
 	 				)
 				)
 	 		)
@@ -115,7 +115,7 @@
 
 (deftemplate abstraccion::atributos
     (slot edat (type INTEGER)  (default -1) (range -1 2))
-    (slot IMC (type INTEGER) (default -1) (range -1 3))
+    (slot IMC (type INTEGER) (default -1) (range -1 2))
     (slot enfermetats (type INTEGER) (default -1) (range -1 2))
     (slot forma_fisica (type INTEGER) (default -1) (range -1 2))
 )
@@ -136,12 +136,11 @@
     (test (< ?IMC  0) )
     ?persona <- (object (is-a Persona) (altura ?a) (peso ?p))
 	=>
-
+	
 	(bind ?imc (/ ?a ?p))
-    (if (< ?imc 18.5) then (bind ?IMC 0))                       ;delgadez
-    (if (and(>= ?imc 18.5) (< ?imc 25)) then (bind ?IMC 1))     ;normal
-    (if (and(>= ?imc 25) (< ?imc 30)) then (bind ?IMC 2))       ;sobrepeso
-    (if (>= ?imc 30) then (bind ?IMC 3))                        ;obesidad
+    (if (and(>= ?imc 18.5) (< ?imc 25)) then (bind ?IMC 0))     				;normal
+    (if (or (< ?imc 18.5) (and(>= ?imc 25) (< ?imc 30))) then (bind ?IMC 1))    ;sobrepeso o delgadez
+    (if (>= ?imc 30) then (bind ?IMC 2))                        				;obesidad
 	(modify ?atr (IMC ?IMC)
 )
 
@@ -164,15 +163,15 @@
 	=>
 
     (if (and(>= ?dias_deporte  2) (or( (eq ?agotamiento  TRUE) (eq ?caid  TRUE)))  
-        then (bind ?forma_fisica 1))                                                                 ;normal
+        then (bind ?forma_fisica 1))                                              		;normal
     (if (or (>= ?dias_deporte  5) (and (>= ?dias_deporte  2) (and (eq ?agotamiento  FALSE) (eq ?caid  FALSE) )))
-        then (bind ?forma_fisica 0))                                                                   ;bona
+        then (bind ?forma_fisica 0))                                                   	;bona
     (if (or ((and (eq ?agotamiento  TRUE) (eq ?caid  TRUE))) (< ?dias_deporte  2)) 
-        then (bind ?forma_fisica 2))                                                                ;dolenta
+        then (bind ?forma_fisica 2))                                                   	;dolenta
 	(modify ?atr (forma_fisica ?forma_fisica)
 )
 
-(defrule abstraccion::clasificaion_estado "Pasa a la recopilacion de preferencias"
+(defrule abstraccion::clasificaion_estado "Clasifica el estado general de la persona segun los 4 param anteriores"
     (declare (salience 10))	
 	?atr <- (atributos (IMC ~"IMC")(edat ?edat) (enfermetats ?enfermetats) (forma_fisica ?forma_fisica) )
     (test (not(< ?edat  0) ))
@@ -182,8 +181,36 @@
     (not (lista_ejercicios))
     (not (nivel_de_forma))
 	=>
-    if(  (and  (and (= ?IMC 0) (= ?edat 0)) (and (= ?IMC 0) (= ?edat 0)))
-        then (bind ?forma 10)
+	;todos son 0
+    if( (and  (and (= ?IMC 0) (= ?edat 0)) (and (= ?enfermetats 0) (= ?forma_fisica 0)))
+        then (bind ?forma 5)
+    )
+	;uno es 1, los otros son 0
+	if(  (or  (or (= ?IMC 1) (= ?edat 1)) (or (= ?enfermetats 1) (= ?forma_fisica 1)))
+        then (bind ?forma 4)
+    )
+	;dos son 1, los otros son 0
+	if(	(or	(or	(or  (and (= ?IMC 1) (= ?edat 1)) (and (= ?enfermetats 1) (= ?forma_fisica 1)))
+		 		(or  (and (= ?IMC 1) (= ?forma_fisica 1)) (and (= ?enfermetats 1) (= ?edat 1))))
+			(or  (and (= ?IMC 1 (= ?enfermetats 1)) (and (= ?edat 1) (= ?forma_fisica 1)))
+		)
+        then (bind ?forma 3)
+    )
+	;tres son 1, los otros son 0
+	if(	(or	(or	(or	(and  (and (= ?IMC 1) (= ?edat 1)) (or (= ?enfermetats 1) (= ?forma_fisica 1)))
+					(and  (and (= ?IMC 1) (= ?forma_fisica 1)) (or (= ?enfermetats 1) (= ?edat 1))))
+				(or (and  (and (= ?IMC 1) (= ?enfermetats 1)) (or (= ?edat 1) (= ?forma_fisica 1)))
+					(and  (and (= ?edat 1) (= ?forma_fisica 1)) (or (= ?enfermetats 1) (= ?IMC 1))))
+			)
+				(or (and  (and (= ?forma_fisica 1) (= ?enfermetats 1)) (or (= ?edat 1) (= ?IMC 1)))
+					(and  (and (= ?edat 1) (= ?enfermetats 1)) (or (= ?IMC 1) (= ?forma_fisica 1))))
+
+		)
+        then (bind ?forma 2)
+    )
+	;alguno es 2, es una persona de edad avanzada por lo que un atributo elevado ya es determinante
+	if(  (or  (or (= ?IMC 2) (= ?edat 2)) (or (= ?enfermetats 2) (= ?forma_fisica 2)))
+        then (bind ?forma 1)
     )
     (assert (nivel_de_forma (forma ?forma) ))
     (assert (lista_ejercicios))

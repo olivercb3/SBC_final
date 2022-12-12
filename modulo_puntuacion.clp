@@ -33,15 +33,17 @@
 	(return $?resultado)
 )
 
-(defrule puntuacion::asignar_ejercicios "Se crea una lista de recomendaciones para ordenarlas"
+;se ejecutara al final por el salience pequeño, por lo que primero se ejecutaran tdoas las reglas de puntuacion
+;hasta que ya no halla más posibles
+(defrule puntuacion::ordena_puntuaciones "Se crea una lista de recomendaciones para ordenarlas"
 	?lista_ejercicios <- (lista_ejercicios (puntuaciones $?lista))
     ?persona <- (object (is-a Persona) (discapacidad_tren_inferior ?di)
                 (discapacidad_tren_superior ?ds) (material ?m) )
-    (not (?ordenado))
+    (declare (salience -1))
 	=>
 
     (bind $?lista_ordenada (ordena_lista $?lista_sin_ord))
 
 	(modify ?lista_ejercicios (puntuaciones $?lista_ordenada))
-    (focus ordenar)
+    (focus organizar)
 )
