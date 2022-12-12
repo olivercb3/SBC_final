@@ -71,7 +71,7 @@
 )
 
 (defrule PreguntesSolicitant
-    (not (object (is-a Persona) )
+    (not (object (is-a Persona))
     =>
     (bind ?valorsPermesosBinari (create$ "si" "no"))
     (bind ?edad (preguntaInteger "Cuantos años tienes?" 1 100))
