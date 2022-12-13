@@ -4,9 +4,9 @@
 )
 
 (deftemplate restricciones
-	(slot cardiovascular (type INTEGER))
-	(slot cancer (type INTEGER))
-	(slot osteoporosis (type INTEGER))
+	(slot cardiovascular (type SYMBOL))
+	(slot cancer (type SYMBOL))
+	(slot osteoporosis (type SYMBOL))
 )
 
 (deffunction maximo-puntuacion ($?lista)
@@ -35,13 +35,52 @@
 
 ;se ejecutara al final por el salience pequeño, por lo que primero se ejecutaran tdoas las reglas de puntuacion
 ;hasta que ya no halla más posibles
-(defrule puntuacion::ordena_puntuaciones "Se crea una lista de recomendaciones para ordenarlas"
+(defrule puntuacion::seleccion-restricciones "Se crea una lista de recomendaciones para ordenarlas"
 	?lista_ejercicios <- (lista_ejercicios (puntuaciones $?lista))
+	?persona <- (object (is-a Persona) (sufre $?enfermedad) )
+    (declare (salience 10))
+	(not (restricciones))
+	=>
+
+	(bind ?cardiovascular FALSE)
+
+    (progn$ (?enf-act $?enfermedad) 
+		(	(if(enf-act = cardiovascular) then (bind ?cardiovascular TRUE))
+			;etc...
+		) 
+	)
+
+	assert (restricciones (cardiovascular ?cardiovascular) )	
+)
+
+;;ejemplo de regla para una restriccion, falta rellenarlo
+(defrule puntuacion::restriccion-cardiovascular "Se crea una lista de recomendaciones para ordenarlas"
+	?val <-(object (is-a Valoracion) (nombre_ejercicio ?ejercicio) (puntuacion ?p))
+	(member$ ?ejer ($?lista)) ;;ns si aqui hace falta poner (test )
+	(test (eq (instance-name ?ejercicio) (instance-name ?ejer)))
+	rest <- (restricciones (cardiovascular ?cardiovascular))
+	(test (eq ?cardiovascular TRUE))
+	(not (restriccion-cardiovascular ?ejer) )
+	=>
+
+	(	(if (send ?ejer get-impacto) then (bind ?p (+ ?p 1.0))
+			;etc...
+	) 
+
+	(send ?val put-puntuacion ?p)
+	(assert (restriccion-cardiovascular ?ejer) )
+)
+
+
+;se ejecutara al final por el salience pequeño, por lo que primero se ejecutaran tdoas las reglas de puntuacion
+;hasta que ya no halla más posibles
+(defrule puntuacion::ordena_puntuaciones "Se crea una lista de recomendaciones para ordenarlas"
     ?persona <- (object (is-a Persona) (discapacidad_tren_inferior ?di)
                 (discapacidad_tren_superior ?ds) (material ?m) )
     (declare (salience -1))
 	=>
 
+	(bind $?lista_sin_ord (find-all-instances (?ins Valoracion) TRUE))
     (bind $?lista_ordenada (ordena_lista $?lista_sin_ord))
 
 	(modify ?lista_ejercicios (puntuaciones $?lista_ordenada))

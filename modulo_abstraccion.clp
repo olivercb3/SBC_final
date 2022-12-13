@@ -4,10 +4,6 @@
 	(export ?ALL)
 )
 
-(deftemplate abstraccion::nivel_de_forma
-	(slot forma (type INTEGER))
-)
-
 ;Funciones de abstraccion
 
 (deffunction eliminar_incomp ($?lista ?material ?dis_inf ?dis_sup)
@@ -228,7 +224,7 @@
 	(bind $?ejercicios_anaerobicos (find-all-instances (?ins Anaerobico) (<= ?inst:dificultat_ejercicio
     (* ?forma 2))))
 	(bind $?ejercicios_posibles 
-		(progn$ (?var ?ejercicios_anaerobicos) (insert$ ?lista (+ (length$ ?lista) 1) ?var)) 
+		(progn$ (?var $?ejercicios_anaerobicos) (insert$ ?lista (+ (length$ ?lista) 1) ?var)) 
     )
 
     (bind $?ejercicios_posibles (eliminar_incomp $?ejercicios_posibles ?m ?di ?ds))
@@ -237,9 +233,7 @@
 		(make-instance (sym-cat ejercicio- (gensym)) of Valoracion (nombre_ejercicio ?ejer_act)(puntuacion 0.0))
 	)
 
-    (bind $?lista_ordenada (ordena_lista $?lista_sin_ord))
-
-	(modify ?lista_ejercicios (puntuaciones $?lista_ordenada))
+	(modify ?lista_ejercicios (find-all-instances (?ins Valoracion) TRUE))
     (focus puntuacion)
 )
   

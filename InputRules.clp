@@ -9,10 +9,18 @@
 	(multislot puntuaciones (type INSTANCE))
 )
 
+(deftemplate MAIN::nivel_de_forma
+	(slot forma (type INTEGER))
+)
+
 (defrule main "Main"
-  ;hauria de ser amb initial-fact pero no sabem com es fa
-  (declare (salience 10))
+  	(declare (salience 10))
 	=>
+	(load "modulo_preguntas.clp")
+    (load "modulo_abstraccion.clp")
+    (load "modulo_puntuacion.clp")
+    (load "modulo_organizar.clp")
+    (load "modulo_imprimir.clp")
 	(reset)
 	(printout t crlf)
 	(printout t "----------- Prototip Inicial ------------" crlf)
