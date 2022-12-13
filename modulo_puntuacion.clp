@@ -56,19 +56,20 @@
 ;;ejemplo de regla para una restriccion, falta rellenarlo
 (defrule puntuacion::restriccion-cardiovascular "Se crea una lista de recomendaciones para ordenarlas"
 	?val <-(object (is-a Valoracion) (nombre_ejercicio ?ejercicio) (puntuacion ?p))
-	(member$ ?ejer ($?lista)) ;;ns si aqui hace falta poner (test )
-	(test (eq (instance-name ?ejercicio) (instance-name ?ejer)))
+	;;?lista_ejercicios <- (lista_ejercicios (puntuaciones $?lista))
+	;;(member$ ?ejer ($?lista)) ;;ns si aqui hace falta poner (test )
+	;;(test (eq (instance-name ?ejercicio) (instance-name ?ejer)))
 	rest <- (restricciones (cardiovascular ?cardiovascular))
 	(test (eq ?cardiovascular TRUE))
-	(not (restriccion-cardiovascular ?ejer) )
+	(not (restriccion-cardiovascular ?ejercicio) )
 	=>
 
-	(	(if (send ?ejer get-impacto) then (bind ?p (+ ?p 1.0))
+	(	(if (eq (send ?ejer get-impacto) FALSE) then (bind ?p (- ?p 1.0))
 			;etc...
 	) 
 
 	(send ?val put-puntuacion ?p)
-	(assert (restriccion-cardiovascular ?ejer) )
+	(assert (restriccion-cardiovascular ?ejercicio) )
 )
 
 

@@ -140,26 +140,36 @@
 	(modify ?atr (IMC ?IMC)
 )
 
-(defrule abstraccion::abstraccion-enfermedades "Abstraccion de las enfermedades que afectan a la forma fisica"
+(defrule abstraccion::abstraccion-enfermedades "Abstraccion de las enfermedades que afectan a la hora de realizar ejercicio"
 	?atr <- (atributos (enfermetats ?enfermetats))
     (test (< ?enfermetats  0) )
     ?persona <- (object (is-a Persona) (sufre ?e))
 	=>
  
-    (bind ?enfermetats 0)                                                                            	;lleu
-	(if (and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e))
-	then (bind ?enfermetats 2))                                         								;Greu
-    (if (or (and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e))
-			(and (eq (instance-name ?enfermedad) Cardiovascular)  (member$ ?enfermedad $?e))
-	then (bind ?enfermetats 0))         																;lleu
-	(if (and (and (eq (instance-name Pulmonar) (member$ ?enfermedad" $?e) 
-			 (and (eq (instance-name Cardiovascular) (member$ ?enfermedad $?e)) 
-	then (bind ?enfermetats 1))        																	;Moderada
-    (modify ?atr (enfermetats ?enfermetats)
+    (bind ?enfermetats 0)                                                           	;lleu    
+
+	(if (or	(or (and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e)) 
+			 	(and (eq (instance-name ?enfermedad) Cardiovascular) (member$ ?enfermedad $?e)))
+			(and (eq (instance-name ?enfermedad) Fibrosis_quistica) (member$ ?enfermedad $?e))) 	
+	then (bind ?enfermetats 1))        													;Moderada
+
+    (if (or	(or	(or	(and (eq (instance-name ?enfermedad) Artritis_reumatoide) (member$ ?enfermedad $?e))
+					(and (eq (instance-name ?enfermedad) Osteoporosis) (member$ ?enfermedad $?e)))
+				(and(and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e))
+					(and (eq (instance-name ?enfermedad) Cardiovascular) (member$ ?enfermedad $?e))))
+			(or	(and(and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e))
+					(and (eq (instance-name ?enfermedad) Fibrosis_quistica) (member$ ?enfermedad $?e)))
+				(and(and (eq (instance-name ?enfermedad) Fibrosis_quistica) (member$ ?enfermedad $?e))
+					(and (eq (instance-name ?enfermedad) Cardiovascular) (member$ ?enfermedad $?e)))))	 
+	then (bind ?enfermetats 2))   														;Greu, o alduna de las dos peores o una combinacion de dos moderadas
+
+	(modify ?atr (enfermetats ?enfermetats)
 )
 
 (defrule abstraccion::abstraccion-forma_fisica "Abstraccion de la forma fisica a nivel de movilidad de la persona"
 	?atr <- (atributos (forma_fisica ?forma_fisica))
+	?persona <- (object (is-a Persona) (agotamiento ?agotamiento) (dias_deporte ?dias_deporte)
+				(forma_fisica ?forma_fisica))
     (test (< ?forma_fisica  0) )
 	=>
 
@@ -182,7 +192,7 @@
     (not (lista_ejercicios))
     (not (nivel_de_forma))
 	=>
-	
+
 	;todos son 0
     if( (and  (and (= ?IMC 0) (= ?edat 0)) (and (= ?enfermetats 0) (= ?forma_fisica 0)))
         then (bind ?forma 5)
