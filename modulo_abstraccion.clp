@@ -116,7 +116,7 @@
     (slot forma_fisica (type INTEGER) (default -1) (range -1 2))
 )
 
-(defrule abstraccion::abstraccion-edad "Establece el tamanyo del grupo"
+(defrule abstraccion::abstraccion-edad "Abstraccion de la edad"
 	(not (atributos))
     ?persona <- (object (is-a Persona) (edad ?e))
 	=>
@@ -127,7 +127,7 @@
 	(assert (atributos (edat ?edat)))
 )
 
-(defrule abstraccion::abstraccion-imc "Establece el tamanyo del grupo"
+(defrule abstraccion::abstraccion-imc "Abstraccion del indice de masa corporal"
 	?atr <- (atributos (IMC ?IMC))
     (test (< ?IMC  0) )
     ?persona <- (object (is-a Persona) (altura ?a) (peso ?p))
@@ -140,20 +140,25 @@
 	(modify ?atr (IMC ?IMC)
 )
 
-(defrule abstraccion::abstraccion-enfermedades "Establece el tamanyo del grupo"
+(defrule abstraccion::abstraccion-enfermedades "Abstraccion de las enfermedades que afectan a la forma fisica"
 	?atr <- (atributos (enfermetats ?enfermetats))
     (test (< ?enfermetats  0) )
     ?persona <- (object (is-a Persona) (sufre ?e))
 	=>
-
-    (bind ?enfermetats 0)                                                                              ;lleu
-	(if (member$ "fragilitat" $?e) then (bind ?enfermetats 2))                                         ;Greu
-    (if (or(member$ "pulmonar" $?e) (member$ "cardiovascular" $?e) then (bind ?enfermetats 0))         ;lleu
-	(if (and(member$ "pulmonar" $?e) (member$ "cardiovascular" $?e) then (bind ?enfermetats 1))        ;Moderada
+ 
+    (bind ?enfermetats 0)                                                                            	;lleu
+	(if (and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e))
+	then (bind ?enfermetats 2))                                         								;Greu
+    (if (or (and (eq (instance-name ?enfermedad) Pulmonar) (member$ ?enfermedad $?e))
+			(and (eq (instance-name ?enfermedad) Cardiovascular)  (member$ ?enfermedad $?e))
+	then (bind ?enfermetats 0))         																;lleu
+	(if (and (and (eq (instance-name Pulmonar) (member$ ?enfermedad" $?e) 
+			 (and (eq (instance-name Cardiovascular) (member$ ?enfermedad $?e)) 
+	then (bind ?enfermetats 1))        																	;Moderada
     (modify ?atr (enfermetats ?enfermetats)
 )
 
-(defrule abstraccion::abstraccion-forma_fisica "Establece el tamanyo del grupo"
+(defrule abstraccion::abstraccion-forma_fisica "Abstraccion de la forma fisica a nivel de movilidad de la persona"
 	?atr <- (atributos (forma_fisica ?forma_fisica))
     (test (< ?forma_fisica  0) )
 	=>
@@ -177,6 +182,7 @@
     (not (lista_ejercicios))
     (not (nivel_de_forma))
 	=>
+	
 	;todos son 0
     if( (and  (and (= ?IMC 0) (= ?edat 0)) (and (= ?enfermetats 0) (= ?forma_fisica 0)))
         then (bind ?forma 5)
