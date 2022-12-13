@@ -169,7 +169,7 @@
 (defrule abstraccion::abstraccion-forma_fisica "Abstraccion de la forma fisica a nivel de movilidad de la persona"
 	?atr <- (atributos (forma_fisica ?forma_fisica))
 	?persona <- (object (is-a Persona) (agotamiento ?agotamiento) (dias_deporte ?dias_deporte)
-				(forma_fisica ?forma_fisica))
+				(caid ?caid))
     (test (< ?forma_fisica  0) )
 	=>
 
