@@ -20,8 +20,8 @@
 (deffunction printEnfermedad (e)
     (printout t "Nombre: " crlf)
     (printout t (instance-name ?e) crlf)
-    (bind ?tipo_enfermedad (send ?p get-tipo_enfermedad))
-    (printout t "tipo de enfermedad: "   ?tipo_enfermedad crlf)
+    (bind ?nombre (send ?p get-nombre))
+    (printout t "tipo de enfermedad: "   ?nombre crlf)
 )
 
 (deffunction printEjercicio (e)

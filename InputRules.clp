@@ -1,3 +1,16 @@
+(defmodule MAIN (export ?ALL))
+
+(defmodule preguntas
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+(defmodule abstraccion
+	(import MAIN ?ALL)
+	(import preguntas deftemplate ?ALL)
+	(export ?ALL)
+)
+
 (defclass Valoracion 
 	(is-a USER)
 	(role concrete)
@@ -16,14 +29,15 @@
 (defrule main "Main"
   	(declare (salience 10))
 	=>
-	(load "modulo_preguntas.clp")
-    (load "modulo_abstraccion.clp")
-    (load "modulo_puntuacion.clp")
-    (load "modulo_organizar.clp")
-    (load "modulo_imprimir.clp")
+	(load "C:/Users/Jordi/Desktop/UNI/IA/Practica SBC/SBC_final/turtle_ontology.clp")
+	(load "C:/Users/Jordi/Desktop/UNI/IA/Practica SBC/SBC_final/modulo_preguntas.clp")
+    (load "C:/Users/Jordi/Desktop/UNI/IA/Practica SBC/SBC_final/modulo_abstraccion.clp")
+    ;(load "C:/Users/Jordi/Desktop/UNI/IA/Practica SBC/SBC_final/modulo_puntuacion.clp")
+    ;(load "C:/Users/Jordi/Desktop/UNI/IA/Practica SBC/SBC_final/modulo_organizar.clp")
+    ;(load "C:/Users/Jordi/Desktop/UNI/IA/Practica SBC/SBC_final/modulo_imprimir.clp")
 	(reset)
 	(printout t crlf)
-	(printout t "----------- Prototip Inicial ------------" crlf)
+	(printout t "----------- Recomendacion ejercicio ------------" crlf)
 	(focus preguntas)
 )
 
