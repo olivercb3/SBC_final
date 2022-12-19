@@ -11,6 +11,21 @@
 	(export ?ALL)
 )
 
+(defmodule puntuacion
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+(defmodule organizar
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
+(defmodule imprimir
+	(import MAIN ?ALL)
+	(export ?ALL)
+)
+
 (defclass Valoracion 
 	(is-a USER)
 	(role concrete)

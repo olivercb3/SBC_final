@@ -59,6 +59,12 @@
 #    Data properties
 #################################################################
 
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#agotamiento
+:agotamiento rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Persona ;
+             rdfs:range xsd:boolean .
+
+
 ###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#altura
 :altura rdf:type owl:DatatypeProperty ;
         rdfs:subPropertyOf owl:topDataProperty ;
@@ -71,6 +77,12 @@
 :dia rdf:type owl:DatatypeProperty ;
      rdfs:domain :Sesion ;
      rdfs:range xsd:int .
+
+
+###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#dias_deporte
+:dias_deporte rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Persona ;
+              rdfs:range xsd:int .
 
 
 ###  http://www.semanticweb.org/olivercemelibarron/ontologies/2022/11/untitled-ontology-4#dificultat_ejercicio

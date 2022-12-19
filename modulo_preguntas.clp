@@ -71,8 +71,8 @@
     (not (object (is-a Persona)))
     =>
     (bind ?valorsPermesosBinari (create$ si no))
-    (bind ?edad (preguntaInteger "Cuantos anos tienes?" 1 100))
-    (bind ?altura (preguntaInteger "Cuanto mides (en cm)?" 50 250))
+    (bind ?edad (preguntaInteger "Cuantos anos tienes?" 60 100))
+    (bind ?altura (preguntaInteger "Cuanto mides (en cm)?" 130 250))
     (bind ?peso (preguntaInteger "Cuanto pesas (en kg)?" 40 200))
     (bind ?disc_sup (preguntaBinaria "Tienes alguna discapacidad del tren superior?" ?valorsPermesosBinari))
     (bind ?disc_inf (preguntaBinaria "Tienes alguna discapacidad del tren inferior?" ?valorsPermesosBinari))
@@ -96,5 +96,7 @@
       (peso ?peso)  
     )
 
-    ;focus(abstraccion)
+  (printout t crlf)
+	(printout t "----------- Preguntas Realizadas ------------" crlf)
+  (focus abstraccion)
 )
